@@ -3,6 +3,8 @@ import { TasksModule } from './tasks/tasks.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { CategoryModule } from './category/category.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -13,6 +15,10 @@ import { CategoryModule } from './category/category.module';
     MongooseModule.forRoot(process.env.DB_URI),
     TasksModule,
     CategoryModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
+    }),
   ],
 })
 export class AppModule {}
