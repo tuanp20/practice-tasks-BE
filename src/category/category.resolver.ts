@@ -6,7 +6,6 @@ import {
   FindCategoryInput,
   UpdateCategoryInput,
 } from './inputs/category.input';
-import { async } from 'rxjs';
 
 @Resolver()
 export class CategoryResolver {
@@ -18,7 +17,7 @@ export class CategoryResolver {
   }
 
   @Mutation(() => CategoryDto)
-  async creatCategory(@Args('input') input: CategoryInput) {
+  async createCategory(@Args('input') input: CategoryInput) {
     return await this.categoryService.create(input);
   }
 

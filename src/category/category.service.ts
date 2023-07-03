@@ -37,4 +37,5 @@ export class CategoryService {
   async delete(id: string): Promise<any> {
     return await this.categoryModel.findByIdAndDelete(id);
   }
+
 }
