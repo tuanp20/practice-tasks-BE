@@ -8,14 +8,6 @@ import { TASK_STATUS } from './task-status.enum';
 
 @Injectable()
 export class TasksService {
-  //   constructor(
-  //     @InjectRepository(TasksRepository)
-  //     private tasksRepository: TasksRepository,
-  //   ) {}
-  //   createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-  //     return this.tasksRepository.createTask(createTaskDto);
-  //   }
-
   constructor(
     @InjectModel(Task.name)
     private taskModel: mongoose.Model<Task>,
