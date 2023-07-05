@@ -1,15 +1,15 @@
-import { PassportStrategy } from '@nestjs/passport';
-import { InjectRepository } from '@nestjs/typeorm';
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { UserRepository } from './users.repository';
-import { JwtPayLoad } from './jws-payload.interface';
-import { User } from './user.entity';
 import { UnauthorizedException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { PassportStrategy } from '@nestjs/passport';
+import mongoose from 'mongoose';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+import { JwtPayLoad } from './jws-payload.interface';
+import { User } from './schemas/users.schema';
 
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @InjectRepository(UserRepository)
-    private userRepository: UserRepository,
+    @InjectModel(User.name)
+    private userModel: mongoose.Model<User>,
   ) {
     super({
       secretOrKey: 'topSecret51',
@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: JwtPayLoad): Promise<User> {
     const { username } = payload;
-    const user: User = await this.userRepository.findOne({
+    const user: User = await this.userModel.findOne({
       where: { username },
     });
 

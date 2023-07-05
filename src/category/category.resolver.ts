@@ -36,4 +36,8 @@ export class CategoryResolver {
     await this.categoryService.delete(input._id);
     return 'Cat removed!';
   }
+
+  Query:{
+    categories: () => null
+  }
 }
